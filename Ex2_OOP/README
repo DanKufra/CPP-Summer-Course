@@ -1,0 +1,69 @@
+dan_kufra
+c++ ex2
+
+=============================
+=      File description     =
+=============================
+
+Song.cpp + Song.h:
+    Represents a Song object.
+    Is a base class for derived classes Instrumental and Lyrical.
+    Includes some virtual methods implemented by derived classes.
+
+Lyrical.cpp + Lyrical.h : Represents a Lyrical object which is a type of Song.
+
+
+Instrumental.cpp + Instrumental.h :
+    Represents a Lyrical object which is a type of Song.
+    Derived from Song ,includes methods that are unique to this type of song.
+
+Parameter.cpp Parameter.h :
+    Represents a Parameter object. Includes the score parameters we read from a file.
+
+Parser.cpp + Parser.h :
+    Represents a Parser object.
+    Is a base class for derived classes QueryParser, SongParser, ParameterParser.
+    Provides methods needed by every kind of parser for reading a file. Such as a readLine method
+    that skips over empty lines.
+
+SongParser.cpp + SongParser.h :
+    An object which is a kind of Parser specifically for reading from a Song file.
+    Reads the file, creates a vector of pointers to Song objects and returns that vector by value.
+
+ParameterParser.cpp + ParameterPaster.h :
+    An object which is a kind of Parser specifically for reading from a Parameter file.
+    Reads the file, creates a Parameter object and returns it by value.
+
+QueryParser.cpp + QueryParser.h :
+    An object which is a kind of Parser specifically for reading from a Query file.
+    Reads the file, creates a vector of strings representing different queries.
+
+MIR.cpp :
+    Our driver file. Receives as an input from the command line the name of 3 files.
+    Uses the three parsers mentioned before to read the files and save the objects/containers.
+    Then goes over each query and calculates the score for each song for said query.
+    Prints out the required score in the correct order.
+
+Makefile : Allows us to compile and create our program MIR easily.
+README: current file.
+
+=============================
+=          Design           =
+=============================
+
+My design is based on the fact that Instrumental and Lyrical are a type of Song. Therefore, while
+they have some attributes that are different we can still look at them as "Song" objects and treat
+them the same. This is achieved by using some virtual functions in Song which only one of the
+derived classes will implement. Such as, get or set for the bpm, or counting the lyrics or
+instruments.
+
+In addition, each type of file parser is derived from a base class Parser. This allows us to use
+some common methods between them. For example, readLine() which skips over empty lines.
+
+I also decided to use different STL containers for different objects. multisets for the lyrics
+since they may appear multiple times. multimap for the sorted Song pointers and their scores with
+the score as a key. This is because a score can be the same for mutliple Songs.
+The sorting is done by providing the greater<int> template for the multimap. So the songs
+are ordered "on the go".
+
+

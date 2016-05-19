@@ -1,0 +1,30 @@
+Big:
+	Parallel:
+			Multiply: 2.14313sec
+			Addition: 0.0222792sec
+	Sequential: 
+			Multiply: 9.39242sec
+			Addition: 0.0121393sec
+Small:
+	Parallel:
+			Multiply: 3.5582e-05sec
+			Addition: 5.5595e-05sec
+	Sequential: 
+			Multiply: 6.77e-07sec
+			Addition: 6.26e-07sec
+
+
+1. There is a difference between the two data sets. In the big data set the Parallel testing was
+	 faster than the Sequential. In the small data set the sequential was faster than the parallel.
+	 I believe this is because for the small data set the cost of starting a new thread for each
+	 row was higher than the time saved by calculating each row in a parallel fashion.
+
+2. There is a difference. For starters, multiplication will take longer simply because it is more 
+	operations. For each cell we must add 2 rows together. Meanwhile in addition for each cell we 
+	must add 2 cells together.
+
+	Also, over the big data set the difference between the addition of sequential and the addition
+	 of parallel is negligible. This is because addition is simple action and the overhead for 
+	creating each thread outweights the benefit of the optimization achieved. If we want better 
+	results we should figure out the cost vs benefit of opening our thread and only open threads 
+	when it is worth it.
